@@ -5,7 +5,7 @@ const gameContainer = document.querySelector(".container"),
     result = document.querySelector(".result"),
     optionImages = document.querySelectorAll(".option_image");
 
-// Loop through each option image element
+// apabila kita mengklik salah satu action button seprti batu maka permainan akan dimulai
 optionImages.forEach((image, index) => {
     image.addEventListener("click", (e) => {
         image.classList.add("active");
@@ -22,28 +22,28 @@ optionImages.forEach((image, index) => {
 
         gameContainer.classList.add("start");
 
-        // Set a timeout to delay the result calculation
+        // Mengatur batas waktu untuk menunda penghitungan hasil
         let time = setTimeout(() => {
             gameContainer.classList.remove("start");
 
-            // Get the source of the clicked option image
+            // Dapatkan sumber gambar opsi yang diklik
             let imageSrc = e.target.querySelector("img").src;
-            // Set the user image to the clicked option image
+            // Mengatur gambar pengguna ke gambar opsi yang diklik
             userResult.src = imageSrc;
 
-            // Generate a random number between 0 and 2
+            // Menghasilkan angka acak antara 0 dan 2
             let randomNumber = Math.floor(Math.random() * 3);
-            // Create an array of CPU image options
+            // Membuat serangkaian pilihan gambar CPU
             let cpuImages = ["images/rock.png", "images/paper.png", "images/scissors.png"];
-            // Set the CPU image to a random option from the array
+            // Mengatur gambar CPU ke opsi acak dari larik
             cpuResult.src = cpuImages[randomNumber];
 
-            // Assign a letter value to the CPU option (R for rock, P for paper, S for scissors)
+            //Menetapkan nilai huruf untuk opsi CPU (R untuk batu, P untuk kertas, S untuk gunting)
             let cpuValue = ["R", "P", "S"][randomNumber];
-            // Assign a letter value to the clicked option (based on index)
+            //Menetapkan nilai huruf pada opsi yang diklik (berdasarkan indeks)
             let userValue = ["R", "P", "S"][index];
 
-            // Create an object with all possible outcomes
+            // Membuat objek dengan semua kemungkinan hasil
             let outcomes = {
                 RR: "Draw",
                 RP: "Cpu",
@@ -56,10 +56,10 @@ optionImages.forEach((image, index) => {
                 SP: "User",
             };
 
-            // Look up the outcome value based on user and CPU options
+            //Mencari nilai hasil berdasarkan opsi pengguna dan CPU
             let outComeValue = outcomes[userValue + cpuValue];
 
-            // Display the result
+            // Menampilkan hasilnya
             result.textContent = userValue === cpuValue ? "Match Draw" : `${outComeValue} Won!!`;
         }, 2500);
     });
